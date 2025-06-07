@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Trading Journey: From Croatia to the World</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e5e7eb;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3b82f6;
+            --secondary-color: #2563eb;
+            --accent-color: #fbbf24;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --border-color: #374151;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link {
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+        }
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(17, 24, 39, 0.95);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path d="M200,300 Q400,200 600,300 T1000,300 L1000,800 Q800,700 600,800 T200,800 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .about-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Strategy Section */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .strategy-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-primary);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .strategy-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Trade Journal */
+        .journal-table {
+            background: var(--bg-primary);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .table-header{
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+        }
+
+        .table-row {
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row div {
+            display: flex;
+            align-items: center;
+        }
+
+                /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 90%;
+            width: 900px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+
+        .close {
+            color: var(--text-secondary);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--primary-color);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .image-container {
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .conclusion {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .profit {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .loss {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        /* Vision Section */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .vision-item {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .vision-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-primary);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .table-header,
+            .table-row {
+                grid-template-columns: repeat(3, 1fr);
+                font-size: 0.9rem;
+            }
+            
+            .table-row .hide-mobile {
+                display: none;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">📈 Trading Journey</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#strategy">Strategy</a></li>
+                    <li><a href="#journal">Journal</a></li>
+                    <li><a href="#vision">Vision</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>My Trading Journey: From Croatia to the World</h1>
+                <p>I started trading to achieve the freedom to travel and not be stuck in one place. I'm still in the process of making that dream a reality.</p>
+                <a href="#about" class="cta-button">Start the Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">📖 About Me</h2>
+                <p class="section-subtitle">Learning trading with the goal of achieving location freedom</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card fade-in">
+                    <div class="card-icon">🎯</div>
+                    <h3>My Goal</h3>
+                    <p>I'm learning trading with the goal of achieving location freedom. The ability to work from anywhere in the world while building wealth through the financial markets.</p>
+                </div>
+                <div class="about-card fade-in">
+                    <div class="card-icon">📊</div>
+                    <h3>My Approach</h3>
+                    <p>I study and trade using both fundamental and technical analysis. My strategy focuses on important levels and economic catalysts for maximum confluence.</p>
+                </div>
+                <div class="about-card fade-in">
+                    <div class="card-icon">📝</div>
+                    <h3>Documentation</h3>
+                    <p>I document everything in Notion to track my progress, analyze my trades, and continuously improve my trading performance.</p>
+                </div>
+                <div class="about-card fade-in">
+                    <div class="card-icon">👥</div>
+                    <h3>Community Learning</h3>
+                    <p>I'm currently learning through the Croatian Trader Discord Server, where I've gained valuable insights from experienced traders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategy Section -->
+    <section id="strategy" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">📊 My Strategy</h2>
+                <p class="section-subtitle">Combining fundamentals with technical analysis for optimal trading decisions</p>
+            </div>
+            <div class="strategy-grid">
+                <div class="strategy-item fade-in">
+                    <div class="card-icon">📰</div>
+                    <h3>Fundamentals</h3>
+                    <p>Economic data, news events, and macroeconomic conditions that drive market movements</p>
+                </div>
+                <div class="strategy-item fade-in">
+                    <div class="card-icon">📈</div>
+                    <h3>Technical Analysis</h3>
+                    <p>Round levels, price action, and chart patterns to identify optimal entry and exit points</p>
+                </div>
+                <div class="strategy-item fade-in">
+                    <div class="card-icon">🛠️</div>
+                    <h3>Tools</h3>
+                    <p>TradingView for charts, Forexfactory for news, and Notion for trade documentation</p>
+                </div>
+                <div class="strategy-item fade-in">
+                    <div class="card-icon">🎯</div>
+                    <h3>Confluence</h3>
+                    <p>Looking for confluences between macroeconomic conditions and key chart levels</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <section id="journal" class="section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">📓 Trade Journal</h2>
+        <p class="section-subtitle">Documenting every trade for continuous improvement</p>
+      </div>
+      <div class="journal-table" role="table" aria-label="Trade Journal Table">
+        <div class="table-header" role="row">
+          <div role="columnheader">Pair</div>
+          <div role="columnheader">Date</div>
+          <div role="columnheader">Entry</div>
+          <div class="hide-mobile" role="columnheader">Exit</div>
+          <div role="columnheader">Result</div>
+          <div class="hide-mobile" role="columnheader">Reason</div>
+        </div>
+
+        <!-- Trade redovi -->
+        <div class="table-row" role="row" tabindex="0" onclick="openTradeModal('trade1')" onkeypress="if(event.key==='Enter'){openTradeModal('trade1')}">
+        <div role="cell">GBP/JPY</div>
+        <div role="cell">03.06.2025.</div>
+        <div role="cell" class="entry">192.843</div>
+        <div class="hide-mobile" role="cell" class="exit">195.444</div>
+        <div role="cell" class="profit">206</div>
+        <div class="hide-mobile" role="cell">Strong support</div>
+        </div>
+
+
+        <div class="table-row" role="row" tabindex="0" onclick="openTradeModal('trade2')" onkeypress="if(event.key==='Enter'){openTradeModal('trade2')}">
+          <div role="cell">EUR/USD</div>
+          <div role="cell">18.05.2025.</div>
+          <div role="cell">1.0800</div>
+          <div class="hide-mobile" role="cell">1.0750</div>
+          <div role="cell" class="loss">-50</div>
+          <div class="hide-mobile" role="cell">Rejected at key level</div>
+        </div>
+
+        <div class="table-row" role="row" tabindex="0" onclick="openTradeModal('trade3')" onkeypress="if(event.key==='Enter'){openTradeModal('trade3')}">
+          <div role="cell">GBP/USD</div>
+          <div role="cell">20.05.2025.</div>
+          <div role="cell">1.2650</div>
+          <div class="hide-mobile" role="cell">1.2700</div>
+          <div role="cell" class="profit">+50</div>
+          <div class="hide-mobile" role="cell">Strong bullish momentum</div>
+        </div>
+
+        <div class="table-row" role="row" tabindex="0" onclick="openTradeModal('trade4')" onkeypress="if(event.key==='Enter'){openTradeModal('trade4')}">
+          <div role="cell">USD/JPY</div>
+          <div role="cell">19.05.2025.</div>
+          <div role="cell">134.50</div>
+          <div class="hide-mobile" role="cell">134.00</div>
+          <div role="cell" class="loss">-50</div>
+          <div class="hide-mobile" role="cell">Failed to hold support</div>
+        </div>
+
+        <div class="table-row" role="row" tabindex="0" onclick="openTradeModal('trade5')" onkeypress="if(event.key==='Enter'){openTradeModal('trade5')}">
+          <div role="cell">AUD/USD</div>
+          <div role="cell">17.05.2025.</div>
+          <div role="cell">0.7100</div>
+          <div class="hide-mobile" role="cell">0.7150</div>
+          <div role="cell" class="profit">+50</div>
+          <div class="hide-mobile" role="cell">Bounce from daily support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <script>
+    document.querySelectorAll('.table-row').forEach(row => {
+        const entryCell = row.querySelector('.entry');
+        const exitCell = row.querySelector('.exit');
+        const profitCell = row.querySelector('.profit');
+
+        if (entryCell && exitCell && profitCell) {
+        const entry = parseFloat(entryCell.textContent);
+        const exit = parseFloat(exitCell.textContent);
+        const difference = exit - entry;
+        const rounded = Math.round(difference * 1000) / 1000;
+
+        profitCell.textContent = rounded;
+
+        // Set class based on result
+        profitCell.classList.remove('profit', 'loss');
+        profitCell.classList.add(rounded >= 0 ? 'profit' : 'loss');
+        }
+    });
+    </script>
+
+
+  <!-- Modal za detalje trada -->
+  <div id="tradeModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTradeModal()">&times;</span>
+        <h2 id="tradeTitle">Trade Details</h2>
+        
+        <div class="image-grid">
+            <div class="image-container">
+                <h3>Weekly Analysis</h3>
+                <img id="weeklyImg" src="" alt="Weekly Analysis">
+            </div>
+            <div class="image-container">
+                <h3>4H Analysis</h3>
+                <img id="4hImg" src="" alt="4H Analysis">
+            </div>
+            <div class="image-container">
+                <h3>Entry Point</h3>
+                <img id="entryImg" src="" alt="Entry Point">
+            </div>
+            <div class="image-container">
+                <h3>Result</h3>
+                <img id="resultImg" src="" alt="Result">
+            </div>
+        </div>
+        
+        <div class="conclusion">
+            <h3>Conclusion & Lessons Learned</h3>
+            <p id="conclusionText"></p>
+        </div>
+    </div>
+</div>
+
+  <script>
+    // Podaci o tradovima i pripadajuće slike
+    const tradesData = {
+      trade1: {
+        title: "EUR/USD - 21.05.2025.",
+        images: [
+          { label: "Weekly Analysis", src: "weekly_analysis_eurusd.png", alt: "Weekly Analysis EUR/USD" },
+          { label: "4H Analysis", src: "4h_analysis_eurusd.png", alt: "4H Analysis EUR/USD" },
+          { label: "Entry", src: "entry_eurusd.png", alt: "Entry EUR/USD" },
+          { label: "Result", src: "waiting.png", alt: "Result - Waiting" }
+        ]
+      },
+      trade2: {
+        title: "EUR/USD - 18.05.2025.",
+        images: [
+          { label: "Weekly Analysis", src: "weekly_analysis_eurusd2.png", alt: "Weekly Analysis EUR/USD" },
+          { label: "4H Analysis", src: "4h_analysis_eurusd2.png", alt: "4H Analysis EUR/USD" },
+          { label: "Entry", src: "entry_eurusd2.png", alt: "Entry EUR/USD" },
+          { label: "Result", src: "waiting.png", alt: "Result - Waiting" }
+        ]
+      },
+      trade3: {
+        title: "GBP/USD - 20.05.2025.",
+        images: [
+          { label: "Weekly Analysis", src: "weekly_analysis_gbpusd.png", alt: "Weekly Analysis GBP/USD" },
+          { label: "4H Analysis", src: "4h_analysis_gbpusd.png", alt: "4H Analysis GBP/USD" },
+          { label: "Entry", src: "entry_gbpusd.png", alt: "Entry GBP/USD" },
+          { label: "Result", src: "waiting.png", alt: "Result - Waiting" }
+        ]
+      },
+      trade4: {
+        title: "USD/JPY - 19.05.2025.",
+        images: [
+          { label: "Weekly Analysis", src: "weekly_analysis_usdjpy.png", alt: "Weekly Analysis USD/JPY" },
+          { label: "4H Analysis", src: "4h_analysis_usdjpy.png", alt: "4H Analysis USD/JPY" },
+          { label: "Entry", src: "entry_usdjpy.png", alt: "Entry USD/JPY" },
+          { label: "Result", src: "waiting.png", alt: "Result - Waiting" }
+        ]
+      },
+      trade5: {
+        title: "AUD/USD - 17.05.2025.",
+        images: [
+          { label: "Weekly Analysis", src: "weekly_analysis_audusd.png", alt: "Weekly Analysis AUD/USD" },
+          { label: "4H Analysis", src: "4h_analysis_audusd.png", alt: "4H Analysis AUD/USD" },
+          { label: "Entry", src: "entry_audusd.png", alt: "Entry AUD/USD" },
+          { label: "Result", src: "waiting.png", alt: "Result - Waiting" }
+        ]
+      }
+    };
+
+    function openTradeModal(tradeId) {
+    const trade = tradesData[tradeId];
+    if (!trade) return;
+    
+    const modal = document.getElementById('tradeModal');
+    document.getElementById('tradeTitle').textContent = trade.title;
+    document.getElementById('weeklyImg').src = trade.images.weekly;
+    document.getElementById('4hImg').src = trade.images.h4;
+    document.getElementById('entryImg').src = trade.images.entry;
+    document.getElementById('resultImg').src = trade.images.result;
+    document.getElementById('conclusionText').textContent = trade.conclusion;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    }
+
+    function closeTradeModal() {
+        document.getElementById('tradeModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('tradeModal');
+        if (event.target === modal) {
+            closeTradeModal();
+        }
+    };
+
+    // Close with ESC key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeTradeModal();
+        }
+    });
+  </script>
+
+    <!-- Vision Section -->
+    <section id="vision" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">🚀 Vision & Goals</h2>
+                <p class="section-subtitle">My roadmap to trading success and location freedom</p>
+            </div>
+            <div class="vision-grid">
+                <div class="vision-item fade-in">
+                    <div class="card-icon">🌍</div>
+                    <h3>Travel the World</h3>
+                    <p>Trade profitably while exploring different countries and cultures</p>
+                </div>
+                <div class="vision-item fade-in">
+                    <div class="card-icon">💰</div>
+                    <h3>Consistent Profitability</h3>
+                    <p>Achieve steady, reliable returns through disciplined trading</p>
+                </div>
+                <div class="vision-item fade-in">
+                    <div class="card-icon">🤝</div>
+                    <h3>Community Growth</h3>
+                    <p>Continue learning and growing with the trading community</p>
+                </div>
+                <div class="vision-item fade-in">
+                    <div class="card-icon">✨</div>
+                    <h3>Inspire Others</h3>
+                    <p>Document the journey so others can learn from my experiences</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">🎯 Contact & Socials</h2>
+                <p class="section-subtitle">Connect with me on my trading journey</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-item fade-in">
+                    <div class="card-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>tradinghubbynikola@gmail.com</p>
+                </div>
+                <a href="https://x.com/hub_by_nikola" target="_blank" class="contact-link">
+                <div class="contact-item fade-in">
+                    <div class="card-icon">🐦</div>
+                    <h3>X (Twitter)</h3>
+                    <p>Follow my trading updates</p>
+                </div>
+                </a>
+
+                <a href="https://www.youtube.com/@ForexNikola" target="_blank" class="contact-link">
+                <div class="contact-item fade-in">
+                    <div class="card-icon">📺</div>
+                    <h3>YouTube</h3>
+                    <p>Watch trading videos</p>
+                </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Trading Journey. From Croatia to the World. 🇭🇷 → 🌍</p>
+        </div>
+    </footer>
+
+    <script>
+        // Trade Modal Functions
+        function openTradeModal(pair, date, result, confluence) {
+            const modal = document.getElementById('tradeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const confluenceText = document.getElementById('confluenceText');
+            
+            modalTitle.textContent = `${pair} Trade - ${date} (${result})`;
+            confluenceText.textContent = `Confluence: ${confluence}`;
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTradeModal() {
+            const modal = document.getElementById('tradeModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('tradeModal');
+            if (event.target === modal) {
+                closeTradeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeTradeModal();
+            }
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Fade in Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                if (document.body.getAttribute('data-theme') === 'dark') {
+                    nav.style.background = 'rgba(17, 24, 39, 0.98)';
+                }
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                if (document.body.getAttribute('data-theme') === 'dark') {
+                    nav.style.background = 'rgba(17, 24, 39, 0.95)';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
